@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "home-work4-0"
+version = "0.1.0"
+description = ""
+authors = ["Анна Елизарова <anna_e1984-26@mail.ru>"]
+readme = "README.md"
+packages = [{include = "home_work4"}]
+
+[tool.poetry.dependencies]
+python = "^3.14"
+poetry-core = "^2.5.0"
+pytest = ">=9.2.0"
+flake8 = ">=7.4.1"
+isort = ">=9.0.2"
+black = ">=26.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.2.0,<10.0.0)"
+]
+lint = [
+    "flake8 (>=7.4.1,<8.0.0)",
+    "isort (>=9.0.2,<10.0.0)",
+    "black (>=26.10.1,<27.0.0)"
+]
