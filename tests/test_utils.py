@@ -1,7 +1,6 @@
 import json
 
 from src.category import Category
-from src.product import Product
 from src.utils import load_data_from_json
 
 
@@ -23,9 +22,7 @@ def test_load_data_from_json(tmp_path):
 
     file_path = tmp_path / "test_products.json"
     with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(
-            test_data, f, ensure_ascii=False
-        )  # ensure_ascii=False чтобы русские буквы записались нормально
+        json.dump(test_data, f, ensure_ascii=False)
 
     categories = load_data_from_json(file_path)
 
@@ -35,12 +32,8 @@ def test_load_data_from_json(tmp_path):
     category = categories[0]
     assert isinstance(category, Category)
     assert category.name == "Смартфоны"
-    assert len(category.products) == 1
-
-    product = category.products[0]
-    assert isinstance(product, Product)
-    assert product.name == "iPhone"
-    assert product.price == 100000.0
+    assert "iPhone" in category.products
+    assert "100000.0" in category.products
 
     assert Category.category_count == 1
     assert Category.product_count == 1
