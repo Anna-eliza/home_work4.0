@@ -1,12 +1,15 @@
 import pytest
-from src.product import Product
+
 from src.category import Category
+from src.product import Product
 
 
 @pytest.fixture
 def product_data():
-    return {"name": "Яблоко", "description": "Красное",
-            "price": 50.0, "quantity": 10}
+    return {"name": "Яблоко",
+            "description": "Красное",
+            "price": 50.0,
+            "quantity": 10}
 
 
 @pytest.fixture
