@@ -1,4 +1,5 @@
 from src.category import Category
+from src.product import Product
 
 
 def test_category_init(product_list):
@@ -45,7 +46,26 @@ def test_add_product_no_return_value(product):
 
 
 def test_products_getter_string_format(product_list):
-    """Проверка формата строки, которую возвращает геттер products"""
     category = Category("Фрукты", "Свежие", product_list)
-    expected_string = "Яблоко, 50.0 руб. Остаток: 10 шт.\n" * 3
+    expected_string = "Яблоко, 50 руб. Остаток: 10 шт.\n" * 3
     assert category.products == expected_string
+
+
+def test_category_str():
+    """Строковое отображение категории."""
+    p1 = Product("A", "A", 100, 10)
+    p2 = Product("B", "B", 200, 2)
+    category = Category("Фрукты", "Свежие", [p1, p2])
+    assert str(category) == "Фрукты, количество продуктов: 12 шт."
+
+
+def test_category_str_empty():
+    """Пустая категория."""
+    category = Category("Пусто", "Пустая", [])
+    assert str(category) == "Пусто, количество продуктов: 0 шт."
+
+
+def test_category_products_getter():
+    p1 = Product("A", "A", 100, 10)
+    category = Category("Фрукты", "Свежие", [p1])
+    assert category.products == "A, 100 руб. Остаток: 10 шт.\n"

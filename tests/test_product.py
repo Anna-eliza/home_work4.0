@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -38,3 +40,43 @@ def test_price_setter_negative(product, capsys):
     assert product.price == 50.0
     captured = capsys.readouterr()
     assert "Цена не должна быть нулевая или отрицательная" in captured.out
+
+
+def test_product_str():
+    """Строковое отображение продукта."""
+    p = Product("Яблоко", "Свежее", 80, 15)
+    assert str(p) == "Яблоко, 80 руб. Остаток: 15 шт."
+
+
+def test_product_str_with_float_price():
+    """Строковое отображение с float-ценой."""
+    p = Product("Яблоко", "Свежее", 80.0, 15)
+    assert str(p) == "Яблоко, 80 руб. Остаток: 15 шт."
+
+
+def test_product_add():
+    """Сложение продуктов."""
+    a = Product("A", "A", 100, 10)
+    b = Product("B", "B", 200, 2)
+    assert a + b == 1400
+
+
+def test_product_add_returns_number():
+    """Результат сложения — число."""
+    a = Product("A", "A", 100, 10)
+    b = Product("B", "B", 200, 2)
+    assert isinstance(a + b, (int, float))
+
+
+def test_product_add_with_non_product():
+    """Нельзя сложить продукт с числом."""
+    a = Product("A", "A", 100, 10)
+    with pytest.raises(TypeError):
+        a + 5
+
+
+def test_product_add_with_string():
+    """Нельзя сложить продукт со строкой."""
+    a = Product("A", "A", 100, 10)
+    with pytest.raises(TypeError):
+        a + "строка"
