@@ -13,7 +13,7 @@ def test_load_data_from_json(tmp_path):
                 {
                     "name": "iPhone",
                     "description": "Хороший телефон",
-                    "price": 100000.0,
+                    "price": 100000,
                     "quantity": 5,
                 }
             ],
@@ -33,7 +33,7 @@ def test_load_data_from_json(tmp_path):
     assert isinstance(category, Category)
     assert category.name == "Смартфоны"
     assert "iPhone" in category.products
-    assert "100000.0" in category.products
+    assert "100000" in category.products
 
     assert Category.category_count == 1
     assert Category.product_count == 1

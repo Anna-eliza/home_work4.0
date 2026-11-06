@@ -5,6 +5,17 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return (
+            f"{self.name}, {self.price:.0f} руб. "
+            f"Остаток: {self.quantity} шт."
+        )
+
+    def __add__(self, other):
+        if not isinstance(other, Product):
+            raise TypeError(f"Нельзя сложить Product с {type(other).__name__}")
+        return self.price * self.quantity + other.price * other.quantity
+
     @property
     def price(self):
         return self.__price

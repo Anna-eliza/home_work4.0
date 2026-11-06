@@ -1,3 +1,6 @@
+from src.product import Product
+
+
 class Category:
     category_count = 0
     product_count = 0
@@ -10,16 +13,17 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
-    def add_product(self, product):
+    def __str__(self):
+        total_quantity = sum(p.quantity for p in self.__products)
+        return f"{self.name}, количество продуктов: " f"{total_quantity} шт."
+
+    def add_product(self, product: Product):
         self.__products.append(product)
         Category.product_count += 1
 
     @property
     def products(self):
-        result = ""
-        for product in self.__products:
-            result += (
-                f"{product.name}, {product.price} руб. "
-                f"Остаток: {product.quantity} шт.\n"
-            )
-        return result
+        """Возвращает строку со всеми продуктами (по одному на строке)."""
+        if not self.__products:
+            return ""
+        return "\n".join(str(p) for p in self.__products) + "\n"
