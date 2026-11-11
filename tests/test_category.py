@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -69,3 +71,33 @@ def test_category_products_getter():
     p1 = Product("A", "A", 100, 10)
     category = Category("Фрукты", "Свежие", [p1])
     assert category.products == "A, 100 руб. Остаток: 10 шт.\n"
+
+
+def test_add_product_not_a_product():
+    """Нельзя добавить в категорию не-продукт (строку)."""
+    category = Category("Фрукты", "Свежие", [])
+
+    with pytest.raises(TypeError):
+        category.add_product("яблоко")
+
+
+def test_add_product_number():
+    """Нельзя добавить в категорию число."""
+    category = Category("Фрукты", "Свежие", [])
+
+    with pytest.raises(TypeError):
+        category.add_product(42)
+
+
+def test_add_product_subclass():
+    """Можно добавить наследника Product."""
+
+    class Smartphone(Product):
+        pass
+
+    category = Category("Смартфоны", "Электроника", [])
+    phone = Smartphone("iPhone", "Хороший", 100000, 5)
+
+    category.add_product(phone)
+    assert Category.product_count == 1
+    assert "iPhone" in category.products
