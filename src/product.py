@@ -1,9 +1,10 @@
-class Product:
+from src.baseproduct import BaseProduct
+from src.mixin import PrintMixin
+
+
+class Product(PrintMixin, BaseProduct):
     def __init__(self, name, description, price, quantity):
-        self.name = name
-        self.description = description
-        self.__price = price
-        self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     def __str__(self):
         return (
@@ -18,18 +19,6 @@ class Product:
                 f"с {type(other).__name__}"
             )
         return self.price * self.quantity + other.price * other.quantity
-
-    @property
-    def price(self):
-        return self.__price
-
-    @price.setter
-    def price(self, value):
-        if value > 0:
-            self.__price = value
-
-        else:
-            print("Цена не должна быть нулевая или отрицательная")
 
     @classmethod
     def new_product(cls, product_data: dict):
