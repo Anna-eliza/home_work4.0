@@ -101,3 +101,17 @@ def test_add_product_subclass():
     category.add_product(phone)
     assert Category.product_count == 1
     assert "iPhone" in category.products
+
+    def test_middle_price_with_products():
+        """Проверка среднего ценника в непустой категории."""
+        p1 = Product("A", "A", 100, 10)
+        p2 = Product("B", "B", 200, 5)
+        category = Category("Тест", "Описание", [p1, p2])
+
+        assert category.middle_price() == 150
+
+    def test_middle_price_empty_category():
+        """Проверка, что для пустой категории возвращается 0."""
+        category = Category("Пустая", "Описание", [])
+
+        assert category.middle_price() == 0
