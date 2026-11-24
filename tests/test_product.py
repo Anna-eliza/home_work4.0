@@ -80,3 +80,11 @@ def test_product_add_with_string():
     a = Product("A", "A", 100, 10)
     with pytest.raises(TypeError):
         a + "строка"
+
+
+def test_zero_quantity_raises_value_error():
+    """Проверка, что при нулевом количестве вызывается ValueError."""
+    with pytest.raises(ValueError) as exc_info:
+        Product("Яблоко", "Красное", 50.0, 0)  # 0 - нулевое количество
+
+    assert str(exc_info.value) == "Товар с нулевым количеством не может быть добавлен"
